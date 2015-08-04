@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A utility to build native packages according to your engine in Node.js",
   "main": "lib/index.js",
+  "bin": "bin/native-builder",
   "scripts": {
     "test": "gulp test"
   },
