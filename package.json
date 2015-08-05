@@ -1,6 +1,6 @@
 {
   "name": "native-builder",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A utility to build native packages according to your engine in Node.js",
   "main": "lib/index.js",
   "bin": "bin/native-builder",
