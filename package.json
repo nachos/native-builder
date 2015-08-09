@@ -39,12 +39,10 @@
     "run-sequence": "^1.1.2"
   },
   "dependencies": {
-    "bindings": "^1.2.1",
+    "child-process-promise": "^1.1.0",
     "commander": "^2.8.1",
-    "nan": "^2.0.0",
     "nw-gyp": "^0.12.4",
     "pangyp": "^2.2.1",
-    "q": "^1.4.1",
     "which-native-nodish": "^1.1.1"
   }
 }
