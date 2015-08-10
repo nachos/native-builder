@@ -5,8 +5,13 @@
   "main": "lib/index.js",
   "bin": "bin/native-builder",
   "scripts": {
-    "test": "gulp test"
+    "lint": "gulp lint",
+    "test": "gulp test",
+    "coveralls": "gulp coveralls"
   },
+  "pre-commit": [
+    "lint"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/nachos/native-builder"
