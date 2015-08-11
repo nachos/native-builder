@@ -75,4 +75,12 @@ describe('native-builder', function () {
       return assert.eventually.equal(nativeBuilder.resolve(), builder.concat(' rebuild --target=0.12.0'));
     });
   });
+
+  describe('Trying to build', function () {
+    it('should throw when no arguments received', function () {
+      var nativeBuilder = require('../lib');
+
+      return expect(nativeBuilder.build()).to.be.rejected;
+    });
+  });
 });
