@@ -2,10 +2,12 @@
 
 var chai = require('chai');
 var expect = chai.expect;
+var assert = chai.assert;
 var chaiAsPromised = require('chai-as-promised');
 var sinon = require('sinon');
 var mockery = require('mockery');
 var Q = require('q');
+var path = require('path');
 
 chai.use(chaiAsPromised);
 
@@ -39,8 +41,11 @@ describe('native-builder', function () {
 
     it('should work', function () {
       var nativeBuilder = require('../lib');
+      var builder = path.resolve(__dirname, '..', 'node_modules', '.bin', 'pangyp');
+      var electronSetup = 'SET USERPROFILE=%USERPROFILE%\\.electron-gyp&& ';
+      var distUrl = '  --dist-url=https://atom.io/download/atom-shell';
 
-      return expect(nativeBuilder.resolve()).to.be.fulfilled;
+      return assert.eventually.equal(nativeBuilder.resolve(), electronSetup.concat(builder, ' rebuild --target=0.30.1', distUrl));
     });
   });
 
@@ -65,8 +70,9 @@ describe('native-builder', function () {
 
     it('should work', function () {
       var nativeBuilder = require('../lib');
+      var builder = path.resolve(__dirname, '..', 'node_modules', '.bin', 'nw-gyp');
 
-      return expect(nativeBuilder.resolve()).to.be.fulfilled;
+      return assert.eventually.equal(nativeBuilder.resolve(), builder.concat(' rebuild --target=0.12.0'));
     });
   });
 });
