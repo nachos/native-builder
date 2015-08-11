@@ -6,7 +6,7 @@ var config = require('../config');
 
 module.exports = function (gulp) {
   gulp.task('test', ['lint'], function (cb) {
-    gulp.src(config.paths.lib)
+    gulp.src(['!' + config.paths.cliFile].concat(config.paths.lib))
       .pipe(istanbul({
         includeUntested: true
       }))

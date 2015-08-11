@@ -30,6 +30,7 @@
   "homepage": "https://github.com/nachos/native-builder",
   "devDependencies": {
     "chai": "^3.2.0",
+    "chai-as-promised": "^5.1.0",
     "git-validate": "^2.0.3",
     "gulp": "^3.9.0",
     "gulp-bump": "^0.3.1",
@@ -41,7 +42,9 @@
     "gulp-util": "^3.0.6",
     "jshint-stylish": "^2.0.1",
     "lazypipe": "^1.0.1",
-    "run-sequence": "^1.1.2"
+    "mockery": "^1.4.0",
+    "run-sequence": "^1.1.2",
+    "sinon": "^1.15.4"
   },
   "dependencies": {
     "child-process-promise": "^1.1.0",
