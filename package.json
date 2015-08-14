@@ -43,6 +43,7 @@
     "jshint-stylish": "^2.0.1",
     "lazypipe": "^1.0.1",
     "mockery": "^1.4.0",
+    "q": "^1.4.1",
     "run-sequence": "^1.1.2",
     "sinon": "^1.15.4"
   },
