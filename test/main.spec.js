@@ -32,11 +32,6 @@ describe('native-builder', function () {
         warnOnReplace: false,
         warnOnUnregistered: false
       });
-
-      this.originalPlatform = process.platform;
-      Object.defineProperty(process, 'platform', {
-        value: 'win32'
-      });
     });
 
     after(function () {
@@ -52,6 +47,11 @@ describe('native-builder', function () {
       var builder = path.resolve(__dirname, '..', 'node_modules', '.bin', 'pangyp');
       var electronSetup = 'SET USERPROFILE=%USERPROFILE%\\.electron-gyp&& ';
       var distUrl = '  --dist-url=https://atom.io/download/atom-shell';
+
+      this.originalPlatform = process.platform;
+      Object.defineProperty(process, 'platform', {
+        value: 'win32'
+      });
 
       return assert.eventually.equal(nativeBuilder.resolve(), electronSetup.concat(builder, ' rebuild --target=0.30.1', distUrl));
     });
