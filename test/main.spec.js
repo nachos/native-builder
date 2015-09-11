@@ -2,14 +2,12 @@
 
 var chai = require('chai');
 var expect = chai.expect;
-var assert = chai.assert;
-var chaiAsPromised = require('chai-as-promised');
 var sinon = require('sinon');
 var mockery = require('mockery');
 var Q = require('q');
 var path = require('path');
 
-chai.use(chaiAsPromised);
+chai.use(require('chai-as-promised'));
 
 describe('native-builder', function () {
   describe('Running with no engine', function () {
@@ -22,10 +20,8 @@ describe('native-builder', function () {
 
   describe('Running atom shell win32', function () {
     before(function () {
-      var deferred = Q.defer();
-      var whichNativeStub = sinon.stub().returns(deferred.promise);
+      var whichNativeStub = sinon.stub().returns(Q.resolve({ asVersion: '0.30.1' }));
 
-      deferred.resolve({ asVersion: '0.30.1' });
       mockery.registerMock('which-native-nodish', whichNativeStub);
       mockery.enable({
         useCleanCache: true,
@@ -44,7 +40,7 @@ describe('native-builder', function () {
 
     it('should work', function () {
       var nativeBuilder = require('../lib');
-      var builder = path.resolve(__dirname, '..', 'node_modules', '.bin', 'pangyp');
+      var builder = path.resolve(__dirname, '..', 'node_modules', '.bin', 'node-gyp');
       var electronSetup = 'SET USERPROFILE=%USERPROFILE%\\.electron-gyp&& ';
       var distUrl = '  --dist-url=https://atom.io/download/atom-shell';
 
@@ -53,16 +49,14 @@ describe('native-builder', function () {
         value: 'win32'
       });
 
-      return assert.eventually.equal(nativeBuilder.resolve(), electronSetup.concat(builder, ' rebuild --target=0.30.1', distUrl));
+      return expect(nativeBuilder.resolve()).to.eventually.equal(electronSetup.concat(builder, ' rebuild --target=0.30.1', distUrl));
     });
   });
 
   describe('Running atom shell otherOS', function () {
     before(function () {
-      var deferred = Q.defer();
-      var whichNativeStub = sinon.stub().returns(deferred.promise);
+      var whichNativeStub = sinon.stub().returns(Q.resolve({ asVersion: '0.30.1' }));
 
-      deferred.resolve({ asVersion: '0.30.1' });
       mockery.registerMock('which-native-nodish', whichNativeStub);
       mockery.enable({
         useCleanCache: true,
@@ -81,7 +75,7 @@ describe('native-builder', function () {
 
     it('should work', function () {
       var nativeBuilder = require('../lib');
-      var builder = path.resolve(__dirname, '..', 'node_modules', '.bin', 'pangyp');
+      var builder = path.resolve(__dirname, '..', 'node_modules', '.bin', 'node-gyp');
       var electronSetup = 'HOME=~/.electron-gyp ';
       var distUrl = '  --dist-url=https://atom.io/download/atom-shell';
 
@@ -91,16 +85,14 @@ describe('native-builder', function () {
         value: 'JustSomeOS'
       });
 
-      return assert.eventually.equal(nativeBuilder.resolve(), electronSetup.concat(builder, ' rebuild --target=0.30.1', distUrl));
+      return expect(nativeBuilder.resolve()).to.eventually.equal(electronSetup.concat(builder, ' rebuild --target=0.30.1', distUrl));
     });
   });
 
   describe('Running node webkit', function () {
     before(function () {
-      var deferred = Q.defer();
-      var whichNativeStub = sinon.stub().returns(deferred.promise);
+      var whichNativeStub = sinon.stub().returns(Q.resolve({ nwVersion: '0.12.0' }));
 
-      deferred.resolve({ nwVersion: '0.12.0' });
       mockery.registerMock('which-native-nodish', whichNativeStub);
       mockery.enable({
         useCleanCache: true,
@@ -128,7 +120,7 @@ describe('native-builder', function () {
       var nativeBuilder = require('../lib');
       var builder = path.resolve(__dirname, '..', 'node_modules', '.bin', 'nw-gyp');
 
-      return assert.eventually.equal(nativeBuilder.resolve(), builder.concat(' rebuild --target=0.12.0  --debug'));
+      return expect(nativeBuilder.resolve()).to.eventually.equal(builder.concat(' rebuild --target=0.12.0  --debug'));
     });
   });
 
