@@ -3,7 +3,7 @@
 var runSequence = require('run-sequence');
 
 module.exports = function (gulp) {
-  gulp.task('lint', ['lint:lib', 'lint:test', 'lint:gulp', 'lint:scripts']);
+  gulp.task('lint', ['lint:lib', 'lint:test', 'lint:gulp']);
 
   gulp.task('lint:lib', function (cb) {
     runSequence(
@@ -25,14 +25,6 @@ module.exports = function (gulp) {
     runSequence(
       'jshint:gulp',
       'jscs:gulp',
-      cb
-    );
-  });
-
-  gulp.task('lint:scripts', function (cb) {
-    runSequence(
-      'jshint:scripts',
-      'jscs:scripts',
       cb
     );
   });

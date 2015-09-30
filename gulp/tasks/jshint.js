@@ -13,7 +13,7 @@ var jshintPipe = function (jshintrc) {
 };
 
 module.exports = function (gulp) {
-  gulp.task('jshint', ['jshint:lib', 'jshint:test', 'jshint:gulp', 'jshint:scripts']);
+  gulp.task('jshint', ['jshint:lib', 'jshint:test', 'jshint:gulp']);
 
   gulp.task('jshint:lib', function () {
     return gulp.src(config.paths.lib)
@@ -27,11 +27,6 @@ module.exports = function (gulp) {
 
   gulp.task('jshint:gulp', function () {
     return gulp.src(config.paths.gulp)
-      .pipe(jshintPipe('.jshintrc'));
-  });
-
-  gulp.task('jshint:scripts', function () {
-    return gulp.src(config.paths.scripts)
       .pipe(jshintPipe('.jshintrc'));
   });
 };
