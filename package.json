@@ -9,9 +9,11 @@
     "test": "gulp test",
     "coveralls": "gulp coveralls"
   },
-  "pre-commit": [
-    "lint"
-  ],
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run-script lint"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/nachos/native-builder"
@@ -31,6 +33,7 @@
   "devDependencies": {
     "chai": "^3.3.0",
     "chai-as-promised": "^5.1.0",
+    "ghooks": "^0.3.2",
     "git-validate": "^2.1.0",
     "gulp": "^3.9.0",
     "gulp-bump": "^1.0.0",
