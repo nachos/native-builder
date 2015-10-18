@@ -123,8 +123,8 @@ nativeBuilder.resolve()
 Unistall a package
 ``` js
 nativeBuilder.build('command to build with')
-  .then(function () {
-    // Build successfully
+  .then(function (exec) {
+    // exec -> the exec object from the build action
   });
 ```
 
