@@ -47,7 +47,8 @@
     "mockery": "^1.4.0",
     "q": "^1.4.1",
     "run-sequence": "^1.1.4",
-    "sinon": "^1.17.1"
+    "sinon": "^1.17.1",
+    "sinon-chai": "^2.8.0"
   },
   "dependencies": {
     "child-process-promise": "^1.1.0",

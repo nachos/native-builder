@@ -8,6 +8,7 @@ var Q = require('q');
 var path = require('path');
 
 chai.use(require('chai-as-promised'));
+chai.use(require('sinon-chai'));
 
 describe('native-builder', function () {
   describe('Running with no engine', function () {
@@ -125,10 +126,35 @@ describe('native-builder', function () {
   });
 
   describe('Trying to build', function () {
-    it('should throw when no arguments received', function () {
+    var execStub;
+
+    before(function () {
+      var whichNativeStub = sinon.stub().returns(Q.resolve({ nwVersion: '0.12.0' }));
+
+      execStub = sinon.stub();
+
+      mockery.registerMock('child_process', {exec: execStub});
+      mockery.registerMock('which-native-nodish', whichNativeStub);
+      mockery.enable({
+        useCleanCache: true,
+        warnOnReplace: false,
+        warnOnUnregistered: false
+      });
+    });
+
+    after(function () {
+      mockery.deregisterMock('which-native-nodish');
+      mockery.deregisterMock('child_process');
+      mockery.disable();
+    });
+
+    it('should call exec with resolved command', function () {
       var nativeBuilder = require('../lib');
 
-      return expect(nativeBuilder.build()).to.be.rejected;
+      return nativeBuilder.build()
+        .then(function () {
+          return expect(execStub).to.have.been.calledWithMatch('nw-gyp rebuild --target=0.12.0');
+        });
     });
   });
 });
