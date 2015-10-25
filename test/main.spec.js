@@ -41,7 +41,7 @@ describe('native-builder', function () {
 
     it('should work', function () {
       var nativeBuilder = require('../lib');
-      var builder = path.resolve(__dirname, '..', 'node_modules', '.bin', 'node-gyp');
+      var builder = '"' + path.resolve(__dirname, '..', 'node_modules', '.bin', 'node-gyp') + '"';
       var electronSetup = 'SET USERPROFILE=%USERPROFILE%\\.electron-gyp&& ';
       var distUrl = '  --dist-url=https://atom.io/download/atom-shell';
 
@@ -76,7 +76,7 @@ describe('native-builder', function () {
 
     it('should work', function () {
       var nativeBuilder = require('../lib');
-      var builder = path.resolve(__dirname, '..', 'node_modules', '.bin', 'node-gyp');
+      var builder = '"' + path.resolve(__dirname, '..', 'node_modules', '.bin', 'node-gyp') + '"';
       var electronSetup = 'HOME=~/.electron-gyp ';
       var distUrl = '  --dist-url=https://atom.io/download/atom-shell';
 
@@ -119,7 +119,7 @@ describe('native-builder', function () {
 
     it('should work in debug', function () {
       var nativeBuilder = require('../lib');
-      var builder = path.resolve(__dirname, '..', 'node_modules', '.bin', 'nw-gyp');
+      var builder = '"' + path.resolve(__dirname, '..', 'node_modules', '.bin', 'nw-gyp') + '"';
 
       return expect(nativeBuilder.resolve()).to.eventually.equal(builder.concat(' rebuild --target=0.12.0  --debug'));
     });
@@ -153,7 +153,7 @@ describe('native-builder', function () {
 
       return nativeBuilder.build()
         .then(function () {
-          return expect(execStub).to.have.been.calledWithMatch('nw-gyp rebuild --target=0.12.0');
+          return expect(execStub).to.have.been.calledWithMatch('nw-gyp" rebuild --target=0.12.0');
         });
     });
   });
